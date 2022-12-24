@@ -1,6 +1,7 @@
 package interfaces;
 
 interface Transportable {
+    String FULE = "Petrol";
     public abstract int getMaxSpeed();
 
     static String isEarthFriendly(boolean s) {
@@ -26,5 +27,6 @@ public class ExInterfaces {
         System.out.println("Speed : " + transportable.getMaxSpeed());
         System.out.println("Ecofriendly : " + Transportable.isEarthFriendly(false));
         System.out.println("Costly : " + transportable.isCostly(true));
+        System.out.println("Fule : "+ Transportable.FULE);
     }
 }
