@@ -63,6 +63,7 @@ int precedence(char ele){
         case '*':
         case '/':
         case '%': return 2; break;
+        case '^': return 3; break;
         default : return 0; break;
     }
 
@@ -105,12 +106,10 @@ void postfix(char arr[],int size){
         expcount++;
         expression[expcount]=pop();
     }
-   
-
 }
 
 void main(){
-    char arr[]="a*a+2*a*b+b*b";
+    char arr[]="a+b*c";
     int length=(sizeof(arr)/sizeof(arr[0]))-1;
     postfix(arr,length);
     displayexp();

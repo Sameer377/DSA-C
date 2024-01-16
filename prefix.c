@@ -63,6 +63,7 @@ int precedence(char ele){
         case '*':
         case '/':
         case '%': return 2; break;
+        case '^': return 3; break; 
         default : return 0; break;
     }
 
@@ -109,7 +110,7 @@ void postfix(char arr[],int size){
 
 }
 
-void displayinfixexp(int length){
+void displayprefixexp(int length){
     printf("\nExpression  : ");
      /* reverse exp */
     int i=0,j=length-1;
@@ -118,7 +119,6 @@ void displayinfixexp(int length){
         char temp = expression[i];
         expression[i]=expression[j];
         expression[j]=temp;
-        /* code */
         i++;
         j--;
     }
@@ -145,7 +145,7 @@ void prefix(char arr[],int length){
     
 
     postfix(arr,length);
-    displayinfixexp(length);
+    displayprefixexp(length);
 
 }
 
