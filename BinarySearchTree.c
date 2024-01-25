@@ -30,7 +30,7 @@ void insert(struct node ** root, int data){
         }
     }
 
-    if(data<parent->data){
+      if(data<parent->data){
         parent->l = new_node;
     } else {
         parent->r = new_node;
@@ -40,8 +40,8 @@ void insert(struct node ** root, int data){
 void search(struct node ** root,int data){
     struct node * ptr = * root;
     while(ptr->data != data)
-    {
-        if(data < ptr->data){
+    {  
+        if(data<ptr->data){
             if(ptr->l==NULL){
                 printf("\nNot found...");
                 return;
@@ -74,18 +74,48 @@ void inorder(struct node * root){
     inorder(root->r);
 }
 
+int countLeafNode(struct node * root){
+    if(root==NULL){
+        return 0;
+    }else if(root->l==NULL && root->r==NULL){
+        return 1;
+    }else{
+        return countLeafNode(root->l)+countLeafNode(root->r);
+    }
+}
+int countNonLeafNode(struct node * root){
+    int c=0;
+    if(root==NULL){
+        printf("%d : NULL Node \n",c);
+        return c;
+    }else if(root->l!=NULL && root->r!=NULL){
+        c=    1+ countNonLeafNode(root->l)+countNonLeafNode(root->r);
+        printf("%d : Parent Node [%d]\n",c,root->data);
+        return c;
+
+    }else{
+
+        c= countNonLeafNode(root->l)+countNonLeafNode(root->r);
+        printf("%d : Leaf Node [%d]\n",c,root->data);
+        return c;
+    }
+}
+
+
 int main(){
     struct node * root =NULL;
     insert(&root,4);
     insert(&root,2);
     insert(&root,5);
     insert(&root,1);
-    insert(&root,3);
+    insert(&root,7);
+    insert(&root,6);
+    insert(&root,8);
 
     printf("Inorder traversal of the constructed tree is \n");
-    inorder(root);
 
-    search(&root,5);
+
+     countNonLeafNode(root);
 
     return 0;
 }
