@@ -83,6 +83,17 @@ int countLeafNode(struct node * root){
         return countLeafNode(root->l)+countLeafNode(root->r);
     }
 }
+
+/* int countTotalNode(struct node * root){
+    if(root==NULL){
+        return 0;
+    }else{
+        return 1+countLeafNode(root->l)+countLeafNode(root->r);
+    }
+} */
+
+
+
 int countNonLeafNode(struct node * root){
     int c=0;
     if(root==NULL){
@@ -101,6 +112,25 @@ int countNonLeafNode(struct node * root){
     }
 }
 
+void show(struct node * root)
+{
+    printf("%d",root);
+}
+
+void printOddLevelNodes(struct node *root, int level, int currentLevel) {
+    if (root == NULL){
+        return;
+    }
+
+    if (currentLevel == level) {
+        if (level % 2 != 0)
+            printf("%d ", root->data);
+    } else {
+        printOddLevelNodes(root->l, level, currentLevel + 1);
+        printOddLevelNodes(root->r, level, currentLevel + 1);
+    }
+}
+
 
 int main(){
     struct node * root =NULL;
@@ -112,10 +142,12 @@ int main(){
     insert(&root,6);
     insert(&root,8);
 
+
     printf("Inorder traversal of the constructed tree is \n");
+// inorder(root);
 
-
-     countNonLeafNode(root);
+    //  printf("%d",countTotalNode(root));
+    printOddLevelNodes(root,0,1);
 
     return 0;
 }
