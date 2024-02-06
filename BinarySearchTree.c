@@ -65,12 +65,74 @@ void search(struct node ** root,int data){
 
 }
 
+
+void findDegreeOfNode(struct node ** root,int data){
+    struct node * ptr = * root;
+    while(ptr->data != data)
+    {  
+        if(data<ptr->data){
+            if(ptr->l==NULL){
+                printf("\nNot found...");
+                return;
+            }else{
+            ptr=ptr->l;
+            }
+        }else if (data>ptr->data)
+        {
+             if(ptr->r==NULL){
+                printf("\nNot found...");
+                return;
+            }else{
+            ptr=ptr->r;
+            }
+        }
+    }
+
+    if(ptr!=NULL&& ptr->data == data){
+        
+        int d=0;
+
+        if(ptr->l!=NULL) {
+            d++;
+        }
+
+        if(ptr->r!=NULL){
+            d++;
+        }
+
+        printf("Node : %d Degree : %d",ptr->data,d);
+
+
+    }
+    
+}
+
 void inorder(struct node * root){
     if(root==NULL)
         return;
 
     inorder(root->l);
     printf("%d ",root->data);
+    inorder(root->r);
+}
+
+void degreeOfNodes(struct node * root){
+    if(root==NULL)
+        return;
+
+    inorder(root->l);
+
+    int d=0;
+
+    if(root->l!=NULL) {
+        d++;
+    }
+
+    if(root->r!=NULL){
+        d++;
+    }
+
+    printf("N: %d D: %d\n",root->data,d);
     inorder(root->r);
 }
 
@@ -147,7 +209,8 @@ int main(){
 // inorder(root);
 
     //  printf("%d",countTotalNode(root));
-    printOddLevelNodes(root,0,1);
+
+    findDegreeOfNode(&root,6);
 
     return 0;
 }
