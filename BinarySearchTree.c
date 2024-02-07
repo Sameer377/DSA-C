@@ -120,7 +120,7 @@ void degreeOfNodes(struct node * root){
     if(root==NULL)
         return;
 
-    inorder(root->l);
+    degreeOfNodes(root->l);
 
     int d=0;
 
@@ -132,8 +132,10 @@ void degreeOfNodes(struct node * root){
         d++;
     }
 
+    // printf("%d ",root->data);
+
     printf("N: %d D: %d\n",root->data,d);
-    inorder(root->r);
+    degreeOfNodes(root->r);
 }
 
 int countLeafNode(struct node * root){
@@ -194,6 +196,71 @@ void printOddLevelNodes(struct node *root, int level, int currentLevel) {
 }
 
 
+void delete(struct node **root, int data) {
+    if (*root == NULL) {
+        printf("Node not found\n");
+        return;
+    }
+
+    struct node *parent = NULL;
+    struct node *current = *root;
+
+    while (current != NULL) {
+        if (data < current->data) {
+            parent = current;
+            current = current->l;
+        } else if (data > current->data) {
+            parent = current;
+            current = current->r;
+        } else {
+            break;
+        }
+    }
+
+    if (current == NULL) {
+        printf("Node not found\n");
+        return;
+    }
+
+    if (current->l == NULL && current->r == NULL) {
+        if (parent->l == current) {
+            parent->l = NULL;
+        } else {
+            parent->r = NULL;
+        }
+    } else if (current->l == NULL) {
+        if (parent->l == current) {
+            parent->l = current->r;
+        } else {
+            parent->r = current->r;
+        }
+    } else if (current->r == NULL) {
+        if (parent->l == current) {
+            parent->l = current->l;
+        } else {
+            parent->r = current->l;
+        }
+    } else {
+        struct node *successor = current->r;
+        struct node *successorParent = current;
+
+        while (successor->l != NULL) {
+            successorParent = successor;
+            successor = successor->l;
+        }
+
+        current->data = successor->data;
+
+        if (successorParent->l == successor) {
+            successorParent->l = successor->r;
+        } else {
+            successorParent->r = successor->r;
+        }
+    }
+
+    free(current);
+}
+
 int main(){
     struct node * root =NULL;
     insert(&root,4);
@@ -203,14 +270,8 @@ int main(){
     insert(&root,7);
     insert(&root,6);
     insert(&root,8);
-
-
-    printf("Inorder traversal of the constructed tree is \n");
-// inorder(root);
-
-    //  printf("%d",countTotalNode(root));
-
-    findDegreeOfNode(&root,6);
+    
+    degreeOfNodes(root);
 
     return 0;
 }
