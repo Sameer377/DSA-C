@@ -240,38 +240,46 @@ void delete(struct node **root, int data) {
         } else {
             parent->r = current->l;
         }
-    } else {
-        struct node *successor = current->r;
-        struct node *successorParent = current;
+    } else if(current->l != NULL && current->r != NULL){
 
-        while (successor->l != NULL) {
-            successorParent = successor;
-            successor = successor->l;
-        }
-
-        current->data = successor->data;
-
-        if (successorParent->l == successor) {
-            successorParent->l = successor->r;
-        } else {
-            successorParent->r = successor->r;
-        }
+         struct node *successor = current->r;
+    struct node *successorParent = current;
+    while (successor->l != NULL) {
+        successorParent = successor;
+        successor = successor->l;
     }
 
-    free(current);
+    current->data = successor->data;
+
+    if (successorParent->l == successor) {
+        successorParent->l = successor->r;
+        printf("hhh");
+    } else {
+        successorParent->r = successor->r;
+    }
+
+    free(successor);
+    return;
+    }
+
+    
+    // free(current);
 }
 
 int main(){
     struct node * root =NULL;
-    insert(&root,4);
-    insert(&root,2);
-    insert(&root,5);
-    insert(&root,1);
-    insert(&root,7);
-    insert(&root,6);
-    insert(&root,8);
-    
-    degreeOfNodes(root);
+    insert(&root,30);
+    insert(&root,20);
+    insert(&root,31);
+    insert(&root,32);
+    insert(&root,40);
+    insert(&root,42);
+    insert(&root,45);
+    insert(&root,50);
+
+    // degreeOfNodes(root);
+    delete(&root,30);
+    inorder(root);
 
     return 0;
 }
