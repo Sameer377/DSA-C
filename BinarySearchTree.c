@@ -253,7 +253,6 @@ void delete(struct node **root, int data) {
 
     if (successorParent->l == successor) {
         successorParent->l = successor->r;
-        printf("hhh");
     } else {
         successorParent->r = successor->r;
     }
@@ -263,7 +262,7 @@ void delete(struct node **root, int data) {
     }
 
     
-    // free(current);
+    free(current);
 }
 
 int main(){
